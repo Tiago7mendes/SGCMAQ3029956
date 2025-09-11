@@ -1,6 +1,14 @@
 package model.framework;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import controller.AppConfig;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringJoiner;
 
 public abstract class DataAccessObject {
     private String tableEntity;
@@ -52,16 +60,77 @@ public abstract class DataAccessObject {
         setChangedEntity(true);
     }
     
-    private void insert() {
-        System.out.println("insert()");
+    private void insert() throws SQLException{
+        String dml = "INSERT INTO " + getTableEntity();
+                
+        StringJoiner fields = new StringJoiner(",");
+        StringJoiner values = new StringJoiner(",");
+        
+        for(String field: dirtyFields.keySet()) {
+            fields.add(field);
+            values.add("?");
+        }
+        
+        dml += " (" + fields + ") VALUES (" + values + ")"; 
+        
+        if(AppConfig.getInstance().isVerbose())
+            System.out.println(dml);
+        
+        Connection con = DataBaseConnections.getInstance().getConnection();
+        PreparedStatement pst = con.prepareStatement(dml);
+        
+        int index = 1; // sql em java conta o index como 1 e não 0
+        for(String field : dirtyFields.keySet()) {
+            pst.setObject(index, dirtyFields.get(field));
+            index++;
+        }
+        
+        if(AppConfig.getInstance().isVerbose())
+            System.out.println(pst);
+        
+        pst.execute();
+        
+        pst.close();
+        DataBaseConnections.getInstance().closeConnection(con);
     }
     
-    private void update() {
-        System.out.println("update()");
+    private void update() throws SQLException{
+        String dml = "UPDATE" + getTableEntity() + " SET ";
+        
+        StringJoiner changes = new StringJoiner(",");
+        
+        for(String field : dirtyFields.keySet()){
+            changes.add(field + " = ? ");
+        }
+        
+        dml += changes + " WHERE " + getWhereClauseForOneEntity();
+        
+        if (AppConfig.getInstance().isVerbose()) {
+            System.out.println(dml);
+        }
+        
+        Connection con = DataBaseConnections.getInstance().getConnection();
+        PreparedStatement pst = con.prepareStatement(dml);
+        
+        int index = 1; // sql em java conta o index como 1 e não 0
+        for(String field : dirtyFields.keySet()) {
+            pst.setObject(index, dirtyFields.get(field));
+            index++;
+        }
+        
+        if(AppConfig.getInstance().isVerbose())
+            System.out.println(pst);
+        
+        pst.execute();
+        
+        pst.close();
+        DataBaseConnections.getInstance().closeConnection(con);
     }
     
-    public void save() {
+    public void save() throws SQLException{
         if(isChangedEntity()) {
+            
+            //salvo
             if(isNovelEntity()) {
                 insert();
                 setNovelEntity(false);
@@ -71,4 +140,78 @@ public abstract class DataAccessObject {
             setChangedEntity(false);
         }
     }
+    
+    public void delete() throws SQLException{
+        String dml = "DELETE FROM " + getTableEntity() + " WHERE " + getWhereClauseForOneEntity();
+        
+        Connection con = DataBaseConnections.getInstance().getConnection();
+        Statement st = con.createStatement();
+        
+        st.execute(dml);
+        st.close();
+        
+        DataBaseConnections.getInstance().closeConnection(con);
+    }
+    
+    public boolean load() throws SQLException{
+        boolean resultado;
+        
+        String dql = "SELECT * FROM " + getTableEntity() + " WHERE " + getWhereClauseForOneEntity();
+        
+        if (AppConfig.getInstance().isVerbose())
+            System.out.println(dql);
+        
+        Connection con = DataBaseConnections.getInstance().getConnection();
+        
+        Statement st = con.createStatement();
+        
+        ResultSet rs = st.executeQuery(dql);
+        
+        resultado = rs.next();
+        
+        if (resultado) {
+            ArrayList<Object> data = new ArrayList();
+            for(int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
+                System.out.println(rs.getObject(i));
+            }
+            
+            fill(data);
+            setNovelEntity(false);
+        }
+        
+        return resultado;
+    }
+    
+    public <T extends DataAccessObject> ArrayList<T> getAllTableEntities() throws SQLException{
+        ArrayList<T> result = new ArrayList<>();
+        
+        String dql = "SELECT * FROM " + getTableEntity();
+        
+        Connection con = DataBaseConnections.getInstance().getConnection();
+        
+        Statement st = con.createStatement();
+        
+        ResultSet rs = st.executeQuery(dql);
+        
+        while (rs.next()) {            
+            ArrayList<Object> data = new ArrayList();
+            
+            for(int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
+                data.add(rs.getObject(i));                
+            }
+            
+            result.add(fill(data).copy());
+        }
+        
+        st.close();
+        
+        DataBaseConnections.getInstance().closeConnection(con);
+        
+        return result;
+    }
+    
+    // padrão Template Method
+    protected abstract String getWhereClauseForOneEntity();
+    protected abstract DataAccessObject fill(ArrayList<Object> data);
+    protected abstract <T extends DataAccessObject> T copy();
 }
