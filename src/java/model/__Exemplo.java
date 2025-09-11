@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class __Exemplo {
     public static void main(String[] args) throws SQLException {
@@ -26,5 +27,8 @@ public class __Exemplo {
           tp.save(); // update
           
 //          tp.delete();
+
+          ArrayList<TipoUsuario> list = new TipoUsuario().getAllTableEntities();
+          System.out.println(list);
     }
 }
