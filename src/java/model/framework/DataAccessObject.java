@@ -143,6 +143,9 @@ public abstract class DataAccessObject {
     
     public void delete() throws SQLException{
         String dml = "DELETE FROM " + getTableEntity() + " WHERE " + getWhereClauseForOneEntity();
+
+        if( AppConfig.getInstance().isVerbose() )
+            System.out.println(dml);
         
         Connection con = DataBaseConnections.getInstance().getConnection();
         Statement st = con.createStatement();
@@ -172,7 +175,7 @@ public abstract class DataAccessObject {
         if (resultado) {
             ArrayList<Object> data = new ArrayList();
             for(int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
-                System.out.println(rs.getObject(i));
+                data.add( rs.getObject(i) );
             }
             
             fill(data);
@@ -186,6 +189,9 @@ public abstract class DataAccessObject {
         ArrayList<T> result = new ArrayList<>();
         
         String dql = "SELECT * FROM " + getTableEntity();
+
+        if( AppConfig.getInstance().isVerbose() )
+            System.out.println(dql);
         
         Connection con = DataBaseConnections.getInstance().getConnection();
         
