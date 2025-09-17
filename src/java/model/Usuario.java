@@ -5,7 +5,8 @@ import model.framework.DataAccessObject;
 
 public class Usuario extends DataAccessObject {
     
-    private int id;
+    // Atributos que fazem relação das colunas da tabela 'usuarios' no banco
+    private int id; // primary key - id do usuario
     private String nome;
     private String login;
     private String senha;
@@ -35,6 +36,7 @@ public class Usuario extends DataAccessObject {
         return tipoUsuarioId;
     }
 
+    // Setters, para alterar os atributos e com o addChange() ja muda no dirtyFields
     public void setId(int id) {
         this.id = id;
         addChange("id", this.id);
@@ -59,20 +61,21 @@ public class Usuario extends DataAccessObject {
         this.tipoUsuarioId = tipoUsuarioId;
         addChange("tipo_usuario_id", this.tipoUsuarioId);
     }
-
+    
     @Override
     protected String getWhereClauseForOneEntity() {
         return " id = " + getId();
     }
 
+    // preenche o objeto com os dados do banco
     @Override
     protected DataAccessObject fill(ArrayList<Object> data) {
-        // segue a ordem das colunas da tabela usuarios
-        id = (int) data.get(0);
-        nome = (String) data.get(1);
-        login = (String) data.get(2);
-        senha = (String) data.get(3);
-        tipoUsuarioId = (int) data.get(4);
+        // segue a ordem das colunas da tabela usuarios (tem que ver certinho se esta desta forma)
+        id = (int) data.get(0); // coluna 1
+        nome = (String) data.get(1); // coluna 2
+        login = (String) data.get(2); // coluna 3
+        senha = (String) data.get(3); // coluna 4
+        tipoUsuarioId = (int) data.get(4); // coluna 5
         
         return this;
     }
