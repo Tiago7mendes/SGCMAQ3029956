@@ -234,4 +234,9 @@ public abstract class DataAccessObject {
     protected abstract String getWhereClauseForOneEntity(); // Preenche os atributos da entidade com os dados vindos do banco
     protected abstract DataAccessObject fill(ArrayList<Object> data); // Preenche os atributos da entidade com os dados vindos do banco
     protected abstract <T extends DataAccessObject> T copy(); // Deve retornar uma cópia do objeto atual
+
+    @Override
+    public boolean equals(Object obj) {
+        throw new RuntimeException("equals must be overrided");
+    }
 }

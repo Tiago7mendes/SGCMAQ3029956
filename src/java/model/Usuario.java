@@ -53,13 +53,31 @@ public class Usuario extends DataAccessObject {
     }
 
     public void setSenha(String senha) {
+        if (this.senha == null) {
+            if (senha != null) {
+                this.senha = senha;
+                addChange("senha", this.senha);
+            }
+        } else {
+            if (senha == null) {
+                this.senha = null;
+                addChange("senha", this.senha);
+            } else {
+                if (this.senha.equals(senha) == false) {
+                    this.senha = senha;
+                    addChange("senha", this.senha);
+                }
+            }
+        }
         this.senha = senha;
         addChange("senha", this.senha);
     }
 
     public void setTipoUsuarioId(int tipoUsuarioId) {
-        this.tipoUsuarioId = tipoUsuarioId;
-        addChange("tipo_usuario_id", this.tipoUsuarioId);
+        if (this.tipoUsuarioId != tipoUsuarioId) {
+            this.tipoUsuarioId = tipoUsuarioId;
+            addChange("tipo_usuario_id", this.tipoUsuarioId);
+        }
     }
     
     @Override
@@ -93,6 +111,18 @@ public class Usuario extends DataAccessObject {
         cp.setNovelEntity(false); // copiou um existente
         
         return cp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Usuario) {
+            Usuario aux = (Usuario) obj;
+            if (getId() == aux.getId()) {
+                return true;
+            } else return false;
+        } else {
+            return false;
+        }
     }
     
     @Override
