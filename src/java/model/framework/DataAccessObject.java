@@ -191,6 +191,7 @@ public abstract class DataAccessObject {
             
             fill(data); // popula os atributos da entidade com os dados
             setNovelEntity(false); // objeto agora já existe no banco
+            setChangedEntity(false);
         }
         
         return resultado;

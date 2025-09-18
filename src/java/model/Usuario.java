@@ -8,7 +8,7 @@ public class Usuario extends DataAccessObject {
     // Atributos que fazem relação das colunas da tabela 'usuarios' no banco
     private int id; // primary key - id do usuario
     private String nome;
-    private String login;
+    private String cpf;
     private String senha;
     private int tipoUsuarioId; // chave estrangeira para tipo_usuario
 
@@ -24,8 +24,8 @@ public class Usuario extends DataAccessObject {
         return nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getCpf() {
+        return cpf;
     }
 
     public String getSenha() {
@@ -47,9 +47,9 @@ public class Usuario extends DataAccessObject {
         addChange("nome", this.nome);
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-        addChange("login", this.login);
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+        addChange("cpf", this.cpf);
     }
 
     public void setSenha(String senha) {
@@ -73,7 +73,7 @@ public class Usuario extends DataAccessObject {
         // segue a ordem das colunas da tabela usuarios (tem que ver certinho se esta desta forma)
         id = (int) data.get(0); // coluna 1
         nome = (String) data.get(1); // coluna 2
-        login = (String) data.get(2); // coluna 3
+        cpf = (String) data.get(2); // coluna 3
         senha = (String) data.get(3); // coluna 4
         tipoUsuarioId = (int) data.get(4); // coluna 5
         
@@ -86,7 +86,7 @@ public class Usuario extends DataAccessObject {
         
         cp.setId(getId());
         cp.setNome(getNome());
-        cp.setLogin(getLogin());
+        cp.setCpf(getCpf());
         cp.setSenha(getSenha());
         cp.setTipoUsuarioId(getTipoUsuarioId());
         
@@ -97,6 +97,6 @@ public class Usuario extends DataAccessObject {
     
     @Override
     public String toString() {
-        return "(" + getId() + ", " + getNome() + ", " + getLogin() + ", " + getSenha() + ", tipoUsuarioId=" + getTipoUsuarioId() + ")";
+        return "(" + getId() + ", " + getNome() + ", " + getCpf() + ", " + getSenha() + ", tipoUsuarioId=" + getTipoUsuarioId() + ")";
     }
 }
