@@ -103,7 +103,7 @@ public abstract class DataAccessObject {
     
     // Atualiza um registro existente no banco de dados com os campos em dirtyFields
     private void update() throws SQLException{
-        String dml = "UPDATE" + getTableEntity() + " SET ";
+        String dml = "UPDATE " + getTableEntity() + " SET ";
         
         StringJoiner changes = new StringJoiner(",");
         

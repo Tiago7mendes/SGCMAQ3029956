@@ -6,17 +6,17 @@ import java.util.ArrayList;
 public class __Exemplo {
     public static void main(String[] args) throws SQLException {
 
-//        TipoUsuario tp = new TipoUsuario();
-//        
-//        tp.setId(12);
-//        tp.setModuloAdministrativo("N");
-//        tp.setModuloAgendamento("N");
-//        tp.setModuloAtendimento("S");
-//        
-//        tp.save(); // insert
+        TipoUsuario tp = new TipoUsuario();
         
-//        tp.setModuloAdministrativo("S");
-//        tp.save(); // update
+        tp.setId(12);
+        tp.setModuloAdministrativo("N");
+        tp.setModuloAgendamento("N");
+        tp.setModuloAtendimento("S");
+        
+        tp.save(); // insert
+        
+        tp.setModuloAdministrativo("S");
+        tp.save(); // update
 
 //          tp.setId(7);
 //          boolean status = tp.load(); // select (read)
@@ -31,14 +31,14 @@ public class __Exemplo {
 //          ArrayList<TipoUsuario> list = new TipoUsuario().getAllTableEntities();
 //          System.out.println(list);
           
-         Usuario us = new Usuario();
-         
-         us.setId(12);
-         us.setNome("Carlinhos");
-         us.setCpf("12342355476");
-         us.setSenha("asbdjk");
-         us.setTipoUsuarioId(5);
-         us.save();
+//         Usuario us = new Usuario();
+//         
+//         us.setId(12);
+//         us.setNome("Carlinhos");
+//         us.setCpf("12342355476");
+//         us.setSenha("asbdjk");
+//         us.setTipoUsuarioId(5);
+//         us.save();
 
 //          Usuario us2 = new Usuario();
           
