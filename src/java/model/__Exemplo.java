@@ -33,14 +33,13 @@ public class __Exemplo {
           
          Usuario us = new Usuario();
          
-         us.setId(12);
+         us.setId(5);
          us.setNome("Carlinhos");
          us.setCpf("12342355476");
          us.setSenha("asbdjk");
-         us.setTipoUsuarioId(5);
+         us.setTipoUsuarioId(12);
          us.save();
 
-          Usuario us2 = new Usuario();
           
     }
 }
