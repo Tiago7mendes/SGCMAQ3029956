@@ -52,7 +52,7 @@ public class Ciclo extends HttpServlet {
         html +="</body>";
         html +="</html>";
         
-        response.setContentType("text/html;charset=UFT-8");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
         
         pw.write(html);
@@ -74,21 +74,4 @@ public class Ciclo extends HttpServlet {
         */
         super.destroy();
     }
-
-//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            html +="<!DOCTYPE html>");
-//            html +="<html>");
-//            html +="<head>");
-//            html +="<title>Servlet Ciclo</title>");
-//            html +="</head>");
-//            html +="<body>");
-//            html +="<h1>Servlet Ciclo at " + request.getContextPath() + "</h1>");
-//            html +="</body>");
-//            html +="</html>");
-//        }
-//    }
 }

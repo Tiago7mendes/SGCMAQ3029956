@@ -15,7 +15,9 @@ public class GetPost extends HttpServlet {
         String opcaoA = request.getParameter("opcaoA");
         String opcaoB = request.getParameter("opcaoB");
         
-        System.out.println("campoA : " + campoA + "opcaoA : " + opcaoA + "opcaoB : " + opcaoB);
+        System.out.println( " campoA : " + campoA );
+        System.out.println( " opcaoA : " + opcaoA );
+        System.out.println( " opcaoB : " + opcaoB );
     }
 
     @Override
