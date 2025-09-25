@@ -28,17 +28,17 @@ public class __Exemplo {
 //          
 ////          tp.delete();
 //
-//          ArrayList<TipoUsuario> list = new TipoUsuario().getAllTableEntities();
-//          System.out.println(list);
+          ArrayList<TipoUsuario> list = new TipoUsuario().getAllTableEntities();
+          System.out.println(list);
           
-         Usuario us = new Usuario();
-         
-         us.setId(5);
-         us.setNome("Carlinhos");
-         us.setCpf("12342355476");
-         us.setSenha("asbdjk");
-         us.setTipoUsuarioId(12);
-         us.save();
+//         Usuario us = new Usuario();
+//         
+//         us.setId(5);
+//         us.setNome("Carlinhos");
+//         us.setCpf("12342355476");
+//         us.setSenha("asbdjk");
+//         us.setTipoUsuarioId(12);
+//         us.save();
 
           
     }
