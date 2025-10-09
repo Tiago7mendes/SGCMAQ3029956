@@ -1,11 +1,11 @@
-<%@page import="model.TipoUsuario"%>
+    <%@page import="model.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tipo Usuario</title>
+        <title>Usuario</title>
         <style>
             * {
                 margin: 0;
@@ -94,37 +94,35 @@
         </style>
     </head>
     <body>
-        <% ArrayList<TipoUsuario> dados = new TipoUsuario().getAllTableEntities(); %>
-        <h1>Tipo Usuario</h1>
+        <% ArrayList<Usuario> dados = new Usuario().getAllTableEntities(); %>
+        <h1>Usuario</h1>
         <div class="container">
         <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Administrativo</th>
-                    <th>Agendamento</th>
-                    <th>Atendimento</th>
+                    <th>CPF</th>
+                    <th>TipoUsuario</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <% for(TipoUsuario tp : dados) { %>
+                <% for(Usuario us : dados) { %>
                 <tr>
-                    <td><%= tp.getId() %></td>
-                    <td><%= tp.getNome() %></td>
-                    <td><%= tp.getModuloAdministrativo()%></td>
-                    <td><%= tp.getModuloAgendamento()%></td>
-                    <td><%= tp.getModuloAtendimento()%></td>
+                    <td><%= us.getId() %></td>
+                    <td><%= us.getNome() %></td>
+                    <td><%= us.getCpf()%></td>
+                    <td><%= us.getTipoUsuarioId()%></td>
                     <td> 
-                        <a href="<%= request.getContextPath()%>/home/tipousuario_form.jsp?action=update&id=<%= tp.getId() %>">Alterar</a>
-                        <a href="<%= request.getContextPath()%>/home/tipousuario?action=delete&id=<%= tp.getId() %>" onclick="return confirm('Deseja excluir TipoUsuario <%= tp.getId()%> (<%= tp.getNome() %>) ?')" >Excluir</a>
+                        <a href="<%= request.getContextPath()%>/home/app/usuario_form.jsp?action=update&id=<%= us.getId() %>">Alterar</a>
+                        <a href="<%= request.getContextPath()%>/home?action=delete&id=<%= us.getId() %>&task=usuario" onclick="return confirm('Deseja excluir Usuario <%= us.getId()%> (<%= us.getNome() %>) ?')" >Excluir</a>
                     </td>
                 </tr>
                 <% }%>
             </tbody>
         </table>
         </div>
-        <a href="<%= request.getContextPath()%>/home/tipousuario_form.jsp?action=create">Adicionar</a>
+        <a href="<%= request.getContextPath()%>/home/app/usuario_form.jsp?action=create">Adicionar</a>
     </body>
 </html>

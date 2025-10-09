@@ -4,8 +4,16 @@
         <servlet-name>GetPost</servlet-name>
         <servlet-class>aulas.servlet.getpost.GetPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>controller.FrontController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetPost</servlet-name>
         <url-pattern>/aulas/servlet/getpost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 </web-app>

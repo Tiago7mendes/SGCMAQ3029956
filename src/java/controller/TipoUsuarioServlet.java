@@ -32,7 +32,7 @@ public class TipoUsuarioServlet extends HttpServlet {
             }
         }
         
-        response.sendRedirect(request.getContextPath() + "/home/tipousuario.jsp");
+        response.sendRedirect(request.getContextPath() + "/home/app/tipousuario.jsp");
     }
 
     @Override
@@ -78,6 +78,6 @@ public class TipoUsuarioServlet extends HttpServlet {
             ExceptionLogTrack.getInstance().addLog(ex);
         }
         
-        response.sendRedirect(request.getContextPath() + "/home/tipousuario.jsp");
+        response.sendRedirect(request.getContextPath() + "/home/app/tipousuario.jsp");
     }
 }
