@@ -1,4 +1,4 @@
-<%@page import="model.Usuario"%>
+    <%@page import="model.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -109,16 +109,16 @@
                 </tr>
             </thead>
             <tbody>
-                <% for(Usuario tp : dados) { %>
+                <% for(Usuario us : dados) { %>
                 <tr>
-                    <td><%= tp.getId() %></td>
-                    <td><%= tp.getNome() %></td>
-                    <td><%= tp.getSenha()%></td>
-                    <td><%= tp.getCpf()%></td>
-                    <td><%= tp.getTipoUsuarioId()%></td>
+                    <td><%= us.getId() %></td>
+                    <td><%= us.getNome() %></td>
+                    <td><%= us.getCpf()%></td>
+                    <td><%= us.getSenha()%></td>
+                    <td><%= us.getTipoUsuarioId()%></td>
                     <td> 
-                        <a href="<%= request.getContextPath()%>/home/usuario_form.jsp?action=update&id=<%= tp.getId() %>">Alterar</a>
-                        <a href="<%= request.getContextPath()%>/home/usuario?action=delete&id=<%= tp.getId() %>" onclick="return confirm('Deseja excluir Usuario <%= tp.getId()%> (<%= tp.getNome() %>) ?')" >Excluir</a>
+                        <a href="<%= request.getContextPath()%>/home/usuario_form.jsp?action=update&id=<%= us.getId() %>">Alterar</a>
+                        <a href="<%= request.getContextPath()%>/home/usuario?action=delete&id=<%= us.getId() %>" onclick="return confirm('Deseja excluir Usuario <%= us.getId()%> (<%= us.getNome() %>) ?')" >Excluir</a>
                     </td>
                 </tr>
                 <% }%>
