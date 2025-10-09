@@ -102,7 +102,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Senha</th>
                     <th>CPF</th>
                     <th>TipoUsuario</th>
                     <th>Ações</th>
@@ -114,7 +113,6 @@
                     <td><%= us.getId() %></td>
                     <td><%= us.getNome() %></td>
                     <td><%= us.getCpf()%></td>
-                    <td><%= us.getSenha()%></td>
                     <td><%= us.getTipoUsuarioId()%></td>
                     <td> 
                         <a href="<%= request.getContextPath()%>/home/usuario_form.jsp?action=update&id=<%= us.getId() %>">Alterar</a>

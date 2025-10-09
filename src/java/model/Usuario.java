@@ -1,5 +1,7 @@
 package model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import model.framework.DataAccessObject;
 
@@ -52,25 +54,22 @@ public class Usuario extends DataAccessObject {
         addChange("cpf", this.cpf);
     }
 
-    public void setSenha(String senha) {
-        if (this.senha == null) {
-            if (senha != null) {
+    public void setSenha(String senha) throws Exception{
+        if (senha == null) {
+            if (this.senha != null) {
                 this.senha = senha;
                 addChange("senha", this.senha);
             }
         } else {
-            if (senha == null) {
-                this.senha = null;
+            if (senha.equals(this.senha) == false) {
+                String senhaSal = getId() + senha + getId() / 2; // para "criptocrafar"
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                String hash = new BigInteger( 1, md.digest(senhaSal.getBytes("UTF-8"))).toString(16);
+                
+                this.senha = hash;
                 addChange("senha", this.senha);
-            } else {
-                if (this.senha.equals(senha) == false) {
-                    this.senha = senha;
-                    addChange("senha", this.senha);
-                }
             }
         }
-        this.senha = senha;
-        addChange("senha", this.senha);
     }
 
     public void setTipoUsuarioId(int tipoUsuarioId) {
@@ -91,8 +90,8 @@ public class Usuario extends DataAccessObject {
         // segue a ordem das colunas da tabela usuarios (tem que ver certinho se esta desta forma)
         id = (int) data.get(0); // coluna 1
         nome = (String) data.get(1); // coluna 2
-        cpf = (String) data.get(2); // coluna 3
-        senha = (String) data.get(3); // coluna 4
+        senha = (String) data.get(2);  // coluna 3
+        cpf = (String) data.get(3);// coluna 4
         tipoUsuarioId = (int) data.get(4); // coluna 5
         
         return this;
@@ -104,8 +103,8 @@ public class Usuario extends DataAccessObject {
         
         cp.setId(getId());
         cp.setNome(getNome());
+        cp.senha = getSenha();
         cp.setCpf(getCpf());
-        cp.setSenha(getSenha());
         cp.setTipoUsuarioId(getTipoUsuarioId());
         
         cp.setNovelEntity(false); // copiou um existente

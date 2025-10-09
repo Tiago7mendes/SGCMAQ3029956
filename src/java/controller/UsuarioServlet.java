@@ -22,11 +22,11 @@ public class UsuarioServlet extends HttpServlet {
         if (action != null && action.equals("delete")) {
             int id = Integer.valueOf(request.getParameter("id"));
             
-            Usuario tp = new Usuario();
-            tp.setId(id);
+            Usuario us = new Usuario();
+            us.setId(id);
             
             try {
-                tp.delete();
+                us.delete();
             } catch (Exception ex) {
                 ExceptionLogTrack.getInstance().addLog(ex);
             }
@@ -38,7 +38,7 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // criar e alterar registros da tabela tipo_usuario
+        // criar e alterar registros da tabela usuario
         
         String action = request.getParameter("action");
         
@@ -46,22 +46,22 @@ public class UsuarioServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String senha = request.getParameter("senha");
         String cpf = request.getParameter("cpf");
-        int tipoUsuario = Integer.valueOf(request.getParameter("id"));
+        int tipoUsuario = Integer.valueOf(request.getParameter("tipoUsuario"));
         
         try {
             // Java Bean
-            Usuario tp = new Usuario();
+            Usuario us = new Usuario();
 
-            tp.setId(id); // chave primária
+            us.setId(id); // chave primária
 
-            if (action.equals("update")) tp.load();
+            if (action.equals("update")) us.load();
 
-            tp.setNome(nome);
-            tp.setSenha(senha);
-            tp.setCpf(cpf);
-            tp.setTipoUsuarioId(tipoUsuario);
+            us.setNome(nome);
+            us.setSenha(senha);
+            us.setCpf(cpf);
+            us.setTipoUsuarioId(tipoUsuario);
 
-            tp.save();
+            us.save();
         } catch (Exception ex) {
             ExceptionLogTrack.getInstance().addLog(ex);
         }
