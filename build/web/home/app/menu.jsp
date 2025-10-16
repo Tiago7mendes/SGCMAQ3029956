@@ -6,6 +6,6 @@
         <title>Menu</title>
     </head>
     <body>
-        <h1>Menu</h1>
+        <%@ include file="/home/app/modulos.jsp"%>
     </body>
 </html>
