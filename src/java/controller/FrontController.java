@@ -50,6 +50,8 @@ public class FrontController extends HttpServlet {
 
                 case "usuario" : doPostUsuario(request, response); break;
 
+                case "login": doPostLogin(request, response);
+                
                 default: doDefault(request, response);
             }
         } catch(Exception ex) {
@@ -152,6 +154,30 @@ public class FrontController extends HttpServlet {
         us.save();
         
         response.sendRedirect(request.getContextPath() + "/home/app/usuario.jsp");
+    }
+    
+    private void doPostLogin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        
+        int id = Integer.valueOf(request.getParameter("id"));
+        String senha = request.getParameter("senha");
+
+        Usuario usuarioTry = new Usuario();
+        usuarioTry.setId(id);
+        usuarioTry.setSenha(senha);
+        
+        usuarioTry.getSenha();
+        
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.load();
+        
+        if (usuario.getSenha().equals(usuarioTry.getSenha())) {
+            response.sendRedirect("home/app/menu.jsp");
+        } else{
+            request.setAttribute("msg", "id e/ou senha incorreto(s)");
+            request.getRequestDispatcher("/home/login.jsp").forward(request, response);
+        }
     }
     
     private void doDefault(HttpServletRequest request, HttpServletResponse response)
